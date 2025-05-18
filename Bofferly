@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bofferly Azaan - AI Prayer Reminder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c8a4f;
+            --secondary: #f5f5f5;
+            --accent: #f8b400;
+            --text: #333;
+            --light-text: #777;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            display: block;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-actions .btn {
+            margin-left: 15px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--text);
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542816417-09836749781e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero-content {
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .features {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+        
+        .premium-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .prayer-times {
+            background: var(--white);
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+        
+        .prayer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .location-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .location-info h3 {
+            font-size: 1.5rem;
+        }
+        
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .prayer-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .prayer-card.active {
+            background: var(--accent);
+            color: var(--text);
+            transform: scale(1.05);
+        }
+        
+        .prayer-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .prayer-time {
+            font-size: 1.1rem;
+        }
+        
+        .prayer-remaining {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .ai-assistant {
+            padding: 60px 0;
+            background: var(--secondary);
+        }
+        
+        .assistant-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .assistant-box {
+            width: 100%;
+            max-width: 800px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .assistant-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .assistant-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .assistant-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .assistant-info p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .assistant-message {
+            background: var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .assistant-input {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .assistant-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .assistant-input button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .assistant-input button:hover {
+            background: #1e6b3a;
+        }
+        
+        .voice-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .voice-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .voice-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .voice-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .premium-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), #1e6b3a);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .premium-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .premium-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .premium-container p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .pricing-card.popular {
+            background: var(--accent);
+            color: var(--text);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .pricing-card.popular .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pricing-features li i {
+            margin-right: 10px;
+        }
+        
+        .popular-badge {
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .halal-marketplace {
+            padding: 60px 0;
+            background: var(--white);
+        }
+        
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .product-description {
+            color: var(--light-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .product-btn {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .product-btn:hover {
+            background: #1e6b3a;
+        }
+        
+        .affiliate-note {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            opacity: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--text);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .user-actions {
+                margin-top: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://via.placeholder.com/40x40" alt="Bofferly Azaan Logo">
+                <div>
+                    <h1>Bofferly Azaan</h1>
+                    <span>By Bofferly Media House</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#prayer-times">Prayer Times</a></li>
+                    <li><a href="#ai-assistant">AI Assistant</a></li>
+                    <li><a href="#premium">Premium</a></li>
+                    <li><a href="#marketplace">Marketplace</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <button class="btn btn-outline">Login</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Never Miss a Prayer Again</h2>
+            <p>AI-powered salah reminders, personalized adhan voices, and halal lifestyle tools to strengthen your faith and daily routine.</p>
+            <button class="btn btn-primary" style="padding: 12px 30px; font-size: 1.1rem;">Download Now</button>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Bofferly Azaan combines cutting-edge AI technology with Islamic principles to create the ultimate prayer companion</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Smart Location Detection</h3>
+                    <p>Automatically adjusts prayer times based on your exact location with precise calculations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>AI Reminders <span class="premium-badge">PREMIUM</span></h3>
+                    <p>Intelligent notifications that learn your schedule and remind you at optimal times.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Custom Adhan Voices <span class="premium-badge">PREMIUM</span></h3>
+                    <p>Choose from famous reciters or create your own AI-generated adhan voice.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Prayer Analytics <span class="premium-badge">PREMIUM</span></h3>
+                    <p>Track your salah consistency and receive personalized improvement suggestions.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Family Tracking <span class="premium-badge">PREMIUM</span></h3>
+                    <p>Monitor your family's prayer habits in one dashboard (with their permission).</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Halal Marketplace</h3>
+                    <p>Discover and purchase halal products directly from trusted Muslim businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="prayer-times" id="prayer-times">
+        <div class="container">
+            <div class="prayer-container">
+                <div class="location-info">
+                    <h3>Today's Prayer Times</h3>
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i> <span>New York, USA</span>
+                    </div>
+                </div>
+                
+                <div class="prayer-grid">
+                    <div class="prayer-card">
+                        <div class="prayer-name">Fajr</div>
+                        <div class="prayer-time">5:12 AM</div>
+                        <div class="prayer-remaining">Completed</div>
+                    </div>
+                    
+                    <div class="prayer-card">
+                        <div class="prayer-name">Sunrise</div>
+                        <div class="prayer-time">6:28 AM</div>
+                    </div>
+                    
+                    <div class="prayer-card">
+                        <div class="prayer-name">Dhuhr</div>
+                        <div class="prayer-time">1:05 PM</div>
+                        <div class="prayer-remaining">2h 18m remaining</div>
+                    </div>
+                    
+                    <div class="prayer-card active">
+                        <div class="prayer-name">Asr</div>
+                        <div class="prayer-time">4:45 PM</div>
+                        <div class="prayer-remaining">Next Prayer</div>
+                    </div>
+                    
+                    <div class="prayer-card">
+                        <div class="prayer-name">Maghrib</div>
+                        <div class="prayer-time">7:42 PM</div>
+                    </div>
+                    
+                    <div class="prayer-card">
+                        <div class="prayer-name">Isha</div>
+                        <div class="prayer-time">9:05 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="ai-assistant" id="ai-assistant">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Islamic Assistant</h2>
+                <p>Get instant answers to your Islamic questions with our knowledgeable AI assistant</p>
+            </div>
+            
+            <div class="assistant-container">
+                <div class="assistant-box">
+                    <div class="assistant-header">
+                        <div class="assistant-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="assistant-info">
+                            <h3>Bofferly AI Assistant</h3>
+                            <p>Ask me anything about Islam, Quran, or prayer</p>
+                        </div>
+                    </div>
+                    
+                    <div class="assistant-message">
+                        <p>Assalamu Alaikum! I'm here to help you with any questions about Islam, prayer times, Quran, or halal lifestyle. How can I assist you today?</p>
+                    </div>
+                    
+                    <div class="assistant-input">
+                        <input type="text" placeholder="Ask a question...">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                
+                <div class="voice-controls">
+                    <button class="voice-btn">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="voice-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="voice-btn">
+                        <i class="fas fa-language"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="premium-section" id="premium">
+        <div class="container">
+            <div class="premium-container">
+                <h2>Upgrade to Premium</h2>
+                <p>Unlock the full potential of Bofferly Azaan with our affordable subscription plans</p>
+                
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3>Basic</h3>
+                        <div class="price">$0<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Basic Prayer Times</li>
+                            <li><i class="fas fa-check"></i> Standard Adhan</li>
+                            <li><i class="fas fa-check"></i> Location Detection</li>
+                            <li><i class="fas fa-times"></i> Custom Adhan Voices</li>
+                            <li><i class="fas fa-times"></i> Advanced Analytics</li>
+                            <li><i class="fas fa-times"></i> Family Tracking</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width: 100%;">Current Plan</button>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">MOST POPULAR</div>
+                        <h3>Premium</h3>
+                        <div class="price">$3.99<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Everything in Basic</li>
+                            <li><i class="fas fa-check"></i> 10+ Adhan Voices</li>
+                            <li><i class="fas fa-check"></i> AI Personal Voice</li>
+                            <li><i class="fas fa-check"></i> Prayer Analytics</li>
+                            <li><i class="fas fa-check"></i> Family Tracking</li>
+                            <li><i class="fas fa-check"></i> Ad-Free Experience</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%;">Upgrade Now</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3>Family</h3>
+                        <div class="price">$6.99<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Everything in Premium</li>
+                            <li><i class="fas fa-check"></i> Up to 6 Family Members</li>
+                            <li><i class="fas fa-check"></i> Shared Analytics</li>
+                            <li><i class="fas fa-check"></i> Group Reminders</li>
+                            <li><i class="fas fa-check"></i> Priority Support</li>
+                            <li><i class="fas fa-check"></i> Exclusive Content</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width: 100%;">Choose Family</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="halal-marketplace" id="marketplace">
+        <div class="container">
+            <div class="section-title">
+                <h2>Halal Marketplace</h2>
+                <p>Discover and support halal businesses through our curated marketplace</p>
+            </div>
+            
+            <div class="marketplace-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Premium Miswak Sticks</h3>
+                        <div class="product-price">$9.99</div>
+                        <div class="product-description">Natural teeth cleaning sticks from the Salvadora Persica tree</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (128)
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1602524818607-f2b0b0b0a9a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Islamic Prayer Rug</h3>
+                        <div class="product-price">$24.99</div>
+                        <div class="product-description">Premium quality prayer mat with compass and beautiful design</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (342)
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1602526430780-782d6b1783fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Quran with English Translation</h3>
+                        <div class="product-price">$19.99</div>
+                        <div class="product-description">Hardcover Quran with clear English translation and commentary</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            (89)
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1602526432604-029a709e131c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Halal Dates Gift Box</h3>
+                        <div class="product-price">$29.99</div>
+                        <div class="product-description">Premium quality Medjool dates in beautiful gift packaging</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (156)
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="affiliate-note">
+                <p>Note: Some links are affiliate links which help support Bofferly Azaan at no extra cost to you.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Bofferly Azaan</h3>
+                    <p>An AI-powered salah companion by Bofferly Media House, helping Muslims worldwide maintain their prayer routine with smart technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#premium">Premium</a></li>
+                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="#">Download</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@bofferly.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bofferly Media House, New York, USA</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Bofferly Media House. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Prayer time countdown (example)
+        function updatePrayerTimes() {
+            const now = new Date();
+            const prayerCards = document.querySelectorAll('.prayer-card');
+            
+            prayerCards.forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // This would be replaced with actual prayer time calculations
+            // For demo purposes, we'll just highlight Asr
+            document.querySelector('.prayer-card:nth-child(4)').classList.add('active');
+        }
+        
+        updatePrayerTimes();
+        setInterval(updatePrayerTimes, 60000); // Update every minute
+        
+        // AI Assistant demo
+        const assistantInput = document.querySelector('.assistant-input input');
+        const assistantSendBtn = document.querySelector('.assistant-input button');
+        
+        assistantSendBtn.addEventListener('click', () => {
+            if (assistantInput.value.trim() !== '') {
+                alert("In the full app, this would send your question to the AI assistant and display the response.");
+                assistantInput.value = '';
+            }
+        });
+        
+        assistantInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                assistantSendBtn.click();
+            }
+        });
+        
+        // Voice control buttons
+        const voiceButtons = document.querySelectorAll('.voice-btn');
+        
+        voiceButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert("In the full app, this would activate voice control features.");
+            });
+        });
+    </script>
+</body>
+</html>
